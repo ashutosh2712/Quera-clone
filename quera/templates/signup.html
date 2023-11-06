@@ -2,5 +2,30 @@
 <title>{% block title %} Signup {% endblock %}</title>
 
 {% block content %}
-<h1>Hello Signup</h1>
+<style>
+  body {
+    {% load static %}
+    {% comment %} background-image: url("{% static 'img/querabackground.jpg' %}"); {% endcomment %}
+    background-color: tomato;
+    {% comment %} background-size: cover; {% endcomment %}
+  }
+</style>
+<div class="form-container">
+  <h1>Quora</h1>
+  <p>A place to share knowledge and better understand the world</p>
+  <form method="POST" action="">
+    {% csrf_token %} {{ form.username }} {% if form.username.errors %}
+    <p class="error-message">{{ form.username.errors|join:", " }}</p>
+    {% endif %} {{ form.email }} {% if form.email.errors %}
+    <p class="error-message">{{ form.email.errors|join:", " }}</p>
+    {% endif %} {{ form.password1 }} {% if form.password1.errors %}
+    <p class="error-message">{{ form.password1.errors|join:", " }}</p>
+    {% endif %} {{ form.password2 }} {% if form.password2.errors %}
+    <p class="error-message">{{ form.password2.errors|join:", " }}</p>
+    {% endif %}
+    <button type="submit">Register</button>
+  </form>
+
+  <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</div>
 {% endblock %}

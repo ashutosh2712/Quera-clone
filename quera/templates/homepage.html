@@ -1,6 +1,15 @@
-{% extends "index.html" %}
+{% extends "index.html" %} {% load static %}
 <title>{% block title %} Home {% endblock %}</title>
 
 {% block content %}
-<h1>Hello home</h1>
+<nav class="navbar">
+  <h2>Quera</h2>
+
+  <img src="{% static 'img/home.png' %}" alt="Home Icon" />
+  <img src="{% static 'img/add-friend.png' %}" alt="Home Icon" />
+  <img src="{% static 'img/edit.png' %}" alt="Home Icon" />
+  <img src="{% static 'img/people.png' %}" alt="Home Icon" />
+  <img src="{% static 'img/notification.png' %}" alt="Home Icon" />
+  <img src="{% static 'img/internet.png' %}" alt="Home Icon" />
+</nav>
 {% endblock %}

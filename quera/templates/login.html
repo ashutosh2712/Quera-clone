@@ -2,5 +2,46 @@
 <title>{% block title %} Login {% endblock %}</title>
 
 {% block content %}
-<h1>Hello login</h1>
+<style>
+  body {
+    {% load static %}
+    {% comment %} background-image: url("{% static 'img/querabackground.jpg' %}"); {% endcomment %}
+    background-color: tomato;
+    {% comment %} background-size: cover; {% endcomment %}
+  }
+</style>
+<div class="form-container">
+  <h1>Quora</h1>
+  <p>A place to share knowledge and better understand the world</p>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <input
+      type="text"
+      name="username"
+      id="username"
+      placeholder="Enter Username"
+    />
+    <input
+      type="password"
+      name="password"
+      id="password"
+      placeholder="Your Password"
+    />
+
+    <button type="submit">Login</button>
+  </form>
+  {% for message in messages %}
+  <p 
+  {% if message.tags == 'error' %}
+    class="message-error" 
+  {% elif message.tags == 'success' %} 
+    class="message-success" 
+   {% endif %}>
+   *{{ message }}
+</p>
+  {% endfor %}
+  <p>
+    Dont have an account?Please sign in <a href="{% url 'signup' %}">Sign Up</a>
+  </p>
+</div>
 {% endblock %}
