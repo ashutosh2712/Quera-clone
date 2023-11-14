@@ -2,14 +2,8 @@
 <title>{% block title %} Login {% endblock %}</title>
 
 {% block content %}
-<style>
-  body {
-    {% load static %}
-    {% comment %} background-image: url("{% static 'img/querabackground.jpg' %}"); {% endcomment %}
-    background-color: tomato;
-    {% comment %} background-size: cover; {% endcomment %}
-  }
-</style>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}" />
 <div class="form-container">
   <h1>Quora</h1>
   <p>A place to share knowledge and better understand the world</p>

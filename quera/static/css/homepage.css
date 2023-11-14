@@ -1,0 +1,76 @@
+.nav-container{
+    display: flex;
+    background-color: lightgrey;
+    justify-content: center;
+    align-items: center;
+  }
+  .nav-item {
+    margin: 1rem;
+  }
+  .item-one {
+    padding-bottom: 20px;
+    color:rgb(170, 8, 8);
+
+  }
+  .item-eight {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 0.5px solid lightgrey;
+    border-radius: 20px;
+    height: 20px;
+    width: 90px;
+    padding-left: 10px;
+    background-color: azure;
+    color: grey;
+  }
+
+  .item-eight:hover{
+    cursor: pointer;
+  }
+
+  .item-ten {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 0.5px solid rgb(170, 8, 8);
+    border-radius: 20px;
+    height: 20px;
+    width: 140px;
+    padding-left: 20px;
+    background-color: rgb(170, 8, 8);;
+    color: white;
+  }
+  .search-quora {
+    border:none;
+    border-radius:10px;
+    padding:10px;
+  }
+
+  .post-container {
+    border: 1px solid gray;
+    margin-top: 10px;
+    
+
+  }
+
+  .post-items {
+    margin-left: 1rem;
+  }
+
+  .rest-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .answer-container {
+    border: 1px solid gray;
+    margin-top: 10px;
+  }
+  .answer-items {
+    display:flex;
+  }
+  .ans-items {
+    margin-left: 1.5rem;
+  }
+  .vote {
+    display:flex;
+  }

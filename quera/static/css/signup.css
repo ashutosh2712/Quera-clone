@@ -1,4 +1,6 @@
-
+body {
+    background-color:tomato;
+}
 .form-container{
     height: 70vh;
     width: 70vh;

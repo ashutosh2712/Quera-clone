@@ -1,15 +1,98 @@
 {% extends "index.html" %} {% load static %}
 <title>{% block title %} Home {% endblock %}</title>
+{% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}" />
+<div class="nav-container">
+  <div class="nav-item item-one"><h1>Quera</h1></div>
+  <div class="nav-item item-two">
+    <img src="{% static 'img/home.png' %}" alt="Home Icon" />
+  </div>
+  <div class="nav-item item-three">
+    <img src="{% static 'img/add-friend.png' %}" alt="Home Icon" />
+  </div>
+  <div class="nav-item item-four">
+    <img src="{% static 'img/edit.png' %}" alt="Home Icon" />
+  </div>
+  <div class="nav-item item-five">
+    <img src="{% static 'img/people.png' %}" alt="Home Icon" />
+  </div>
+  <div class="nav-item item-six">
+    <img src="{% static 'img/notification.png' %}" alt="Home Icon" />
+  </div>
+  <div class="nav-item item-seven">
+    <input type="search" class="search-quora" placeholder="Search Quora" />
+  </div>
+  <div class="nav-item item-eight">Try Quara+</div>
+  <div class="nav-item item-nine">
+    <img src="{% static 'img/internet.png' %}" alt="Home Icon" />
+  </div>
+  <div class="nav-item item-ten">Add Question</div>
+</div>
 
-{% block content %}
-<nav class="navbar">
-  <h2>Quera</h2>
+<div class="post-container">
+  <div class="post-items">
+    <h1>What makes you respect another person?</h1>
+  </div>
+  <div class="rest-container">
+    <div class="post-items ans">Answer</div>
+    <div class="post-items">
+      <img src="{% static 'img/hotspot.png' %}" alt="follow" />
+      Follow. 383
+    </div>
+    <div class="post-items">
+      <img src="{% static 'img/add-contact.png' %}" alt="request" />
+      Request
+    </div>
+    <div class="post-items">
+      <img src="{% static 'img/info.png' %}" alt="details" />
+    </div>
+    <div class="post-items">
+      <img src="{% static 'img/speech-bubble.png' %}" alt="comment" />
+      2
+    </div>
+    <div class="post-items">
+      <img src="{% static 'img/download.png' %}" alt="downVote" />
+    </div>
+    <div class="post-items">
+      <img src="{% static 'img/menu-dots.png' %}" alt="three dots" />
+    </div>
+  </div>
+</div>
 
-  <img src="{% static 'img/home.png' %}" alt="Home Icon" />
-  <img src="{% static 'img/add-friend.png' %}" alt="Home Icon" />
-  <img src="{% static 'img/edit.png' %}" alt="Home Icon" />
-  <img src="{% static 'img/people.png' %}" alt="Home Icon" />
-  <img src="{% static 'img/notification.png' %}" alt="Home Icon" />
-  <img src="{% static 'img/internet.png' %}" alt="Home Icon" />
-</nav>
+<div class="answer-container">
+  <p class="your-answer">
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores earum quis
+    pariatur ab nobis consequuntur, iusto hic ea cumque quibusdam, illum in
+    saepe ducimus rem labore neque. Quaerat aut eum recusandae distinctio
+    deleniti quae dicta aliquid sit, iste nulla adipisci pariatur reiciendis
+    aliquam ipsam repudiandae veniam in inventore perspiciatis sapiente!
+    Repellendus illum et enim fugiat earum suscipit asperiores consectetur,
+    sequi quisquam rem adipisci dolores mollitia obcaecati? Recusandae eum unde
+    reiciendis, doloremque error vero eius rerum eveniet deserunt quod dolores
+    expedita sit reprehenderit vitae impedit, pariatur quisquam sapiente ex
+    ullam nesciunt excepturi repellat sint harum. Natus, minus! Non id
+    repudiandae voluptates.
+  </p>
+  <div class="answer-items">
+    <div class="vote">
+      <div class="ans-items">
+        <img src="{% static 'img/up-arrow.png' %}" alt="upvote" />
+        .34.5k
+      </div>
+      <div class="ans-items">
+        <img src="{% static 'img/download.png' %}" alt="downvote" />
+      </div>
+    </div>
+    <div class="ans-items">
+      <img src="{% static 'img/speech-bubble.png' %}" alt="comment" />
+      213
+    </div>
+    <div class="ans-items">
+      <img src="{% static 'img/reload.png' %}" alt="share" />28
+    </div>
+    <div class="ans-items">
+      <img src="{% static 'img/menu-dots.png' %}" alt="details" />
+    </div>
+  </div>
+</div>
 {% endblock %}
