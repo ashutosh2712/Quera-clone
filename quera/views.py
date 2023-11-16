@@ -1,15 +1,18 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm
+from .forms import CreateUserForm, QuestionForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from .models import Question
 
 
 # Create your views here.
 @login_required(login_url="login")
 def home(request):
-    return render(request, "homepage.html")
+    questions = Question.objects.all().order_by("-created_at")
+    context = {"questions": questions}
+    return render(request, "homepage.html", context)
 
 
 def signup(request):
@@ -54,7 +57,21 @@ def logoutUser(request):
 
 
 def postques(request):
-    return render(request, "postques.html")
+    print("View triggered.")
+    form = QuestionForm()
+    if request.method == "POST":
+        form = QuestionForm(request.POST)
+        print(form.is_valid())
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.user = request.user
+            question.save()
+            return redirect("home")
+        else:
+            errors = form.errors
+
+    context = {"form": form, "errors": errors}
+    return render(request, "homepage.html", context)
 
 
 def postans(request):

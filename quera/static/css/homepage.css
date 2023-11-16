@@ -1,3 +1,5 @@
+
+
 .nav-container{
     display: flex;
     background-color: lightgrey;
@@ -45,11 +47,10 @@
     padding:10px;
   }
 
-  .post-container {
+  .question-container {
     border: 1px solid gray;
     margin-top: 10px;
     
-
   }
 
   .post-items {
@@ -74,3 +75,24 @@
   .vote {
     display:flex;
   }
+
+
+  .post-container {
+    text-align: center;
+}
+
+.post-text {
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.post-text:hover {
+    text-decoration: none;
+}
+
+.post-form {
+    display: none;
+    margin-top: 20px;
+}
+

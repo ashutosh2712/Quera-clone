@@ -2,6 +2,7 @@
 <title>{% block title %} Home {% endblock %}</title>
 {% block content %} {% load static %}
 <link rel="stylesheet" href="{% static 'css/homepage.css' %}" />
+
 <div class="nav-container">
   <div class="nav-item item-one"><h1>Quera</h1></div>
   <div class="nav-item item-two">
@@ -26,16 +27,33 @@
   <div class="nav-item item-nine">
     <img src="{% static 'img/internet.png' %}" alt="Home Icon" />
   </div>
-  <div class="nav-item item-ten">Add Question</div>
+  <div class="nav-item item-ten">
+    <div class="post-container" onclick="showPostForm()">
+      Add Question
+      <form class="post-form" action="{% url 'postques' %}" method="post">
+        {% csrf_token %}
+        <textarea
+          name="{{ form.content.name }}"
+          rows="{{ form.content.rows }}"
+          cols="{{ form.content.cols }}"
+          placeholder="{{ form.content.placeholder }}"
+        ></textarea>
+        <button class="cancel-button" onclick="closePostForm()">Cancel</button>
+        <button type="submit">Post</button>
+      </form>
+    </div>
+  </div>
+
   <div class="nav-item item-eleven">Hello,{{request.user}}</div>
   <div class="nav-item item-twelve">
     <a href="{% url 'logout' %}">Logout</a>
   </div>
 </div>
-
-<div class="post-container">
+{% for question in questions %}
+<div class="question-container">
   <div class="post-items">
-    <h1>What makes you respect another person?</h1>
+    <p>{{ question.user.username }} asked:</p>
+    <h1>{{ question.content }}</h1>
   </div>
   <div class="rest-container">
     <div class="post-items ans">Answer</div>
@@ -62,6 +80,7 @@
     </div>
   </div>
 </div>
+{% endfor %}
 
 <div class="answer-container">
   <p class="your-answer">
@@ -99,4 +118,23 @@
     </div>
   </div>
 </div>
+{% if errors %}
+<div style="color: red">{{ errors }}</div>
+{% endif %}
+
+<script>
+  document
+    .querySelector(".post-form")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+    });
+
+  function showPostForm() {
+    console.log("showPostForm called");
+    document.querySelector(".post-form").style.display = "block";
+  }
+  function closePostForm() {
+    document.querySelector(".post-form").style.display = "none";
+  }
+</script>
 {% endblock %}
