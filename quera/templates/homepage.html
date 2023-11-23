@@ -28,20 +28,7 @@
     <img src="{% static 'img/internet.png' %}" alt="Home Icon" />
   </div>
   <div class="nav-item item-ten">
-    <div class="post-container" onclick="showPostForm()">
-      Add Question
-      <form class="post-form" action="{% url 'postques' %}" method="post">
-        {% csrf_token %}
-        <textarea
-          name="{{ form.content.name }}"
-          rows="{{ form.content.rows }}"
-          cols="{{ form.content.cols }}"
-          placeholder="{{ form.content.placeholder }}"
-        ></textarea>
-        <button class="cancel-button" onclick="closePostForm()">Cancel</button>
-        <button type="submit">Post</button>
-      </form>
-    </div>
+    <div class="post-container" onclick="">Add Question</div>
   </div>
 
   <div class="nav-item item-eleven">Hello,{{request.user}}</div>
@@ -49,6 +36,12 @@
     <a href="{% url 'logout' %}">Logout</a>
   </div>
 </div>
+<form class="post-form" action="{% url 'postques' %}" method="post">
+  {% csrf_token %} {{ form.content }}
+  <button class="cancel-button" onclick="closePostForm()">Cancel</button>
+  <button type="submit">Post</button>
+</form>
+
 {% for question in questions %}
 <div class="question-container">
   <div class="post-items">
@@ -123,12 +116,6 @@
 {% endif %}
 
 <script>
-  document
-    .querySelector(".post-form")
-    .addEventListener("submit", function (event) {
-      event.preventDefault();
-    });
-
   function showPostForm() {
     console.log("showPostForm called");
     document.querySelector(".post-form").style.display = "block";

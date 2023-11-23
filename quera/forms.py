@@ -30,7 +30,11 @@ class CreateUserForm(UserCreationForm):
 
 
 class QuestionForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea(attrs={"rows": 4, "cols": 50}))
+    content = forms.CharField(
+        widget=forms.Textarea(
+            attrs={"rows": 4, "cols": 50, "placeholder": "Enter your question here..."}
+        )
+    )
 
     class Meta:
         model = Question

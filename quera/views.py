@@ -11,7 +11,8 @@ from .models import Question
 @login_required(login_url="login")
 def home(request):
     questions = Question.objects.all().order_by("-created_at")
-    context = {"questions": questions}
+    form = QuestionForm()
+    context = {"form": form, "questions": questions}
     return render(request, "homepage.html", context)
 
 
@@ -57,7 +58,6 @@ def logoutUser(request):
 
 
 def postques(request):
-    print("View triggered.")
     form = QuestionForm()
     if request.method == "POST":
         form = QuestionForm(request.POST)
