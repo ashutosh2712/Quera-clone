@@ -36,20 +36,21 @@
     <a href="{% url 'logout' %}">Logout</a>
   </div>
 </div>
-<form class="post-form" action="{% url 'postques' %}" method="post">
-  {% csrf_token %} {{ form.content }}
-  <button class="cancel-button" onclick="closePostForm()">Cancel</button>
-  <button type="submit">Post</button>
-</form>
+<div class="form-container">
+  <form class="post-form" action="{% url 'postques' %}" method="post">
+    {% csrf_token %} {{ form.content }}
+    <button type="submit" class="post-btn">Post</button>
+  </form>
+</div>
 
 {% for question in questions %}
 <div class="question-container">
   <div class="post-items">
     <p>{{ question.user.username }} asked:</p>
-    <h1>{{ question.content }}</h1>
+    <h3>{{ question.content }}</h3>
   </div>
   <div class="rest-container">
-    <div class="post-items ans">Answer</div>
+    <div class="post-items ans" onclick="showAnswerForm(this)">Answer</div>
     <div class="post-items">
       <img src="{% static 'img/hotspot.png' %}" alt="follow" />
       Follow. 383
@@ -73,21 +74,22 @@
     </div>
   </div>
 </div>
-{% endfor %}
-
+<div class="modal" id="answerModal">
+  <div class="modal-content">
+      <span class="close" onclick="closeAnswerForm()">&times;</span>
+      <form action="{% url 'postans' %}" method="post">
+        {% csrf_token %} {{ ans_form.content }}
+          <button type="submit" onclick="closeAnswerForm()">Post Answer</button>
+      </form>
+  </div>
+</div>
 <div class="answer-container">
   <p class="your-answer">
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores earum quis
-    pariatur ab nobis consequuntur, iusto hic ea cumque quibusdam, illum in
-    saepe ducimus rem labore neque. Quaerat aut eum recusandae distinctio
-    deleniti quae dicta aliquid sit, iste nulla adipisci pariatur reiciendis
-    aliquam ipsam repudiandae veniam in inventore perspiciatis sapiente!
-    Repellendus illum et enim fugiat earum suscipit asperiores consectetur,
-    sequi quisquam rem adipisci dolores mollitia obcaecati? Recusandae eum unde
-    reiciendis, doloremque error vero eius rerum eveniet deserunt quod dolores
-    expedita sit reprehenderit vitae impedit, pariatur quisquam sapiente ex
-    ullam nesciunt excepturi repellat sint harum. Natus, minus! Non id
-    repudiandae voluptates.
+    {% comment %} <ul>
+      {% for answer in question.answer_set.all %}
+          <li>{{ answer.user.username }} answered: {{ answer.content }}</li>
+      {% endfor %}
+  </ul> {% endcomment %}
   </p>
   <div class="answer-items">
     <div class="vote">
@@ -111,9 +113,14 @@
     </div>
   </div>
 </div>
+{% endfor %}
+
+
 {% if errors %}
 <div style="color: red">{{ errors }}</div>
 {% endif %}
+
+
 
 <script>
   function showPostForm() {
@@ -123,5 +130,28 @@
   function closePostForm() {
     document.querySelector(".post-form").style.display = "none";
   }
+
+  function showAnswerForm(clickedElement) {
+    // Access the specific element's parent (question-container) to get the relevant data
+    var questionContainer = clickedElement.closest('.question-container');
+
+    // You can extract information from questionContainer and use it in your pop-up
+    // For example:
+    var questionContent = questionContainer.querySelector('h3').textContent;
+
+    // Update the placeholder for the answer textarea
+    var answerTextarea = document.querySelector('#answerModal textarea');
+    answerTextarea.placeholder = "Answer to: " + questionContent;
+
+    // Now you can use this information to update your pop-up content or perform other actions
+    console.log("Question Content:", questionContent);
+
+    document.getElementById('answerModal').style.display = 'block';
+    document.body.classList.add('blur');
+}
+function closeAnswerForm() {
+  document.getElementById('answerModal').style.display = 'none';
+  document.body.classList.remove('blur');
+}
 </script>
 {% endblock %}

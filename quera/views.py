@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm, QuestionForm
+from .forms import CreateUserForm, QuestionForm, AnswerForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -12,7 +12,8 @@ from .models import Question
 def home(request):
     questions = Question.objects.all().order_by("-created_at")
     form = QuestionForm()
-    context = {"form": form, "questions": questions}
+    ans_form = AnswerForm()
+    context = {"form": form, "questions": questions, "ans_form": ans_form}
     return render(request, "homepage.html", context)
 
 
@@ -74,5 +75,18 @@ def postques(request):
     return render(request, "homepage.html", context)
 
 
-def postans(request):
-    return render(request, "postans.html")
+def postans(request, question_id):
+    question = Question.objects.get(pk=question_id)
+    ans_form = AnswerForm()
+    if request.method == "POST":
+        ans_form = AnswerForm(request.POST)
+        if ans_form.is_valid():
+            answer = ans_form.save(commit=False)
+            answer.user = request.user
+            answer.question = question
+            answer.save()
+            return redirect("home")
+    else:
+        errors = ans_form.errors
+    context = {"ans_form": ans_form, "errors": errors}
+    return render(request, "homepage.html", context)

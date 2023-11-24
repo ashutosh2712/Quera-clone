@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Question
+from .models import Question, Answer
 
 
 class CreateUserForm(UserCreationForm):
@@ -38,4 +38,17 @@ class QuestionForm(forms.ModelForm):
 
     class Meta:
         model = Question
+        fields = ["content"]
+
+
+class AnswerForm(forms.ModelForm):
+    content = forms.CharField(
+        widget=forms.Textarea(
+            attrs={"rows": 4, "cols": 50, "placeholder": "Write your answer..."}
+        ),
+        required=True,
+    )
+
+    class Meta:
+        model = Answer
         fields = ["content"]
