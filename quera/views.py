@@ -77,7 +77,6 @@ def postques(request):
 
 def postans(request, question_id):
     question = Question.objects.get(pk=question_id)
-    print(question)
     ans_form = AnswerForm()
     if request.method == "POST":
         ans_form = AnswerForm(request.POST)

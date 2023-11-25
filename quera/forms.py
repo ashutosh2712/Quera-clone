@@ -32,7 +32,12 @@ class CreateUserForm(UserCreationForm):
 class QuestionForm(forms.ModelForm):
     content = forms.CharField(
         widget=forms.Textarea(
-            attrs={"rows": 4, "cols": 50, "placeholder": "Enter your question here..."}
+            attrs={
+                "class": "post-text-ques",
+                "rows": 10,
+                "cols": 75,
+                "placeholder": "Enter your question here...",
+            }
         )
     )
 
@@ -44,7 +49,12 @@ class QuestionForm(forms.ModelForm):
 class AnswerForm(forms.ModelForm):
     content = forms.CharField(
         widget=forms.Textarea(
-            attrs={"rows": 4, "cols": 50, "placeholder": "Write your answer..."}
+            attrs={
+                "class": "post-text-ans",
+                "rows": 10,
+                "cols": 100,
+                "placeholder": "Write your answer...",
+            }
         ),
         required=True,
     )

@@ -43,14 +43,14 @@
   </form>
 </div>
 
-{% for question in questions %}
+{% for ques in questions %}
 <div class="question-container">
   <div class="post-items">
-    <p>{{ question.user.username }} asked:</p>
-    <h3>{{ question.content }}</h3>
+    <p>{{ ques.user.username }} asked:</p>
+    <h2>{{ ques.content }}</h2>
   </div>
   <div class="rest-container">
-    <div class="post-items ans" onclick="showAnswerForm({{ question.id }})">
+    <div class="post-items ans" onclick="showAnswerForm({{ ques.id }})">
       Answer
     </div>
     <div class="post-items">
@@ -76,19 +76,26 @@
     </div>
   </div>
 </div>
+
 <div id="overlay" class="overlay"></div>
 <div class="modal" id="answerModal">
   <div class="modal-content">
     <span class="close" onclick="closeAnswerForm()">&times;</span>
-    <form action="{% url 'postans' question.id %}" method="post">
+    <form action="{% url 'postans' ques.id %}" method="post">
       {% csrf_token %} {{ ans_form.content }}
-      <button type="submit">Post Answer</button>
+      <button type="submit" class="ans-post-btn">Post</button>
     </form>
   </div>
 </div>
-{% for answer in question.answers.all %}
+{% for answer in ques.answers.all %}
 <div class="answer-container">
-  <p>{{ answer.user.username }} answered: {{ answer.content }}</p>
+  <div class="answer-text-items">
+    <p class="ques-attach-ans">Answer of : {{ answer.question.content }}</p>
+    <p class="ans-main">
+      Answered by:{{ answer.user.username }}
+      <br />{{ answer.content }}
+    </p>
+  </div>
   <div class="answer-items">
     <div class="vote">
       <div class="ans-items">
@@ -125,7 +132,6 @@
   }
 
   function showAnswerForm(questionId) {
-    console.log(questionId);
     // Check if questionId is a valid numerical value
     if (Number.isInteger(questionId) && questionId > 0) {
       // Show the overlay to blur the background
@@ -135,7 +141,10 @@
       document.getElementById("answerModal").style.display = "block";
 
       // Update the form action URL with the specific question ID
-      //document.querySelector('#answerModal form').action = `/postans/${questionId}/`;
+
+      document.querySelector(
+        "#answerModal form"
+      ).action = `/quera/postans/${encodeURIComponent(questionId)}/`;
     } else {
       // Handle invalid questionId (optional)
       console.error("Invalid questionId:", questionId);
