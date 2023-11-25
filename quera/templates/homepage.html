@@ -50,7 +50,9 @@
     <h3>{{ question.content }}</h3>
   </div>
   <div class="rest-container">
-    <div class="post-items ans" onclick="showAnswerForm(this)">Answer</div>
+    <div class="post-items ans" onclick="showAnswerForm({{ question.id }})">
+      Answer
+    </div>
     <div class="post-items">
       <img src="{% static 'img/hotspot.png' %}" alt="follow" />
       Follow. 383
@@ -74,23 +76,19 @@
     </div>
   </div>
 </div>
+<div id="overlay" class="overlay"></div>
 <div class="modal" id="answerModal">
   <div class="modal-content">
-      <span class="close" onclick="closeAnswerForm()">&times;</span>
-      <form action="{% url 'postans' %}" method="post">
-        {% csrf_token %} {{ ans_form.content }}
-          <button type="submit" onclick="closeAnswerForm()">Post Answer</button>
-      </form>
+    <span class="close" onclick="closeAnswerForm()">&times;</span>
+    <form action="{% url 'postans' question.id %}" method="post">
+      {% csrf_token %} {{ ans_form.content }}
+      <button type="submit">Post Answer</button>
+    </form>
   </div>
 </div>
+{% for answer in question.answers.all %}
 <div class="answer-container">
-  <p class="your-answer">
-    {% comment %} <ul>
-      {% for answer in question.answer_set.all %}
-          <li>{{ answer.user.username }} answered: {{ answer.content }}</li>
-      {% endfor %}
-  </ul> {% endcomment %}
-  </p>
+  <p>{{ answer.user.username }} answered: {{ answer.content }}</p>
   <div class="answer-items">
     <div class="vote">
       <div class="ans-items">
@@ -113,14 +111,9 @@
     </div>
   </div>
 </div>
-{% endfor %}
-
-
-{% if errors %}
+{% endfor %} {% endfor %} {% if errors %}
 <div style="color: red">{{ errors }}</div>
 {% endif %}
-
-
 
 <script>
   function showPostForm() {
@@ -131,27 +124,30 @@
     document.querySelector(".post-form").style.display = "none";
   }
 
-  function showAnswerForm(clickedElement) {
-    // Access the specific element's parent (question-container) to get the relevant data
-    var questionContainer = clickedElement.closest('.question-container');
+  function showAnswerForm(questionId) {
+    console.log(questionId);
+    // Check if questionId is a valid numerical value
+    if (Number.isInteger(questionId) && questionId > 0) {
+      // Show the overlay to blur the background
+      document.getElementById("overlay").style.display = "block";
 
-    // You can extract information from questionContainer and use it in your pop-up
-    // For example:
-    var questionContent = questionContainer.querySelector('h3').textContent;
+      // Show the answer modal
+      document.getElementById("answerModal").style.display = "block";
 
-    // Update the placeholder for the answer textarea
-    var answerTextarea = document.querySelector('#answerModal textarea');
-    answerTextarea.placeholder = "Answer to: " + questionContent;
+      // Update the form action URL with the specific question ID
+      //document.querySelector('#answerModal form').action = `/postans/${questionId}/`;
+    } else {
+      // Handle invalid questionId (optional)
+      console.error("Invalid questionId:", questionId);
+    }
+  }
 
-    // Now you can use this information to update your pop-up content or perform other actions
-    console.log("Question Content:", questionContent);
+  function closeAnswerForm() {
+    // Hide the overlay to unblur the background
+    document.getElementById("overlay").style.display = "none";
 
-    document.getElementById('answerModal').style.display = 'block';
-    document.body.classList.add('blur');
-}
-function closeAnswerForm() {
-  document.getElementById('answerModal').style.display = 'none';
-  document.body.classList.remove('blur');
-}
+    // Hide the answer modal
+    document.getElementById("answerModal").style.display = "none";
+  }
 </script>
 {% endblock %}

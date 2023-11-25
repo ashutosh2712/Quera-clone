@@ -4,6 +4,7 @@
     background-color: lightgrey;
     justify-content: center;
     align-items: center;
+    margin-top: 0;
   }
   .nav-item {
     margin: 1rem;
@@ -118,4 +119,56 @@
   margin-top: 2rem;
   
 }
+
+/* Add this CSS to your styles.css or within the <style> tag in your HTML head */
+body.blur {
+  filter: blur(5px);
+}
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); /* Fallback for older browsers */
+  backdrop-filter: blur(5px); /* Apply the blur effect */
+  z-index: 1;
+  display: none;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 
