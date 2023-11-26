@@ -38,7 +38,7 @@
 </div>
 <div class="form-container">
   <form class="post-form" action="{% url 'postques' %}" method="post">
-    {% csrf_token %} {{ form.content }}
+    <div>{% csrf_token %} {{ form.content }}</div>
     <button type="submit" class="post-btn">Post</button>
   </form>
 </div>
@@ -54,25 +54,45 @@
       Answer
     </div>
     <div class="post-items">
-      <img src="{% static 'img/hotspot.png' %}" alt="follow" />
+      <img
+        class="follow-img"
+        src="{% static 'img/hotspot.png' %}"
+        alt="follow"
+      />
       Follow. 383
     </div>
     <div class="post-items">
-      <img src="{% static 'img/add-contact.png' %}" alt="request" />
+      <img
+        class="request-img"
+        src="{% static 'img/add-contact.png' %}"
+        alt="request"
+      />
       Request
     </div>
     <div class="post-items">
-      <img src="{% static 'img/info.png' %}" alt="details" />
+      <img class="detail-img" src="{% static 'img/info.png' %}" alt="details" />
     </div>
     <div class="post-items">
-      <img src="{% static 'img/speech-bubble.png' %}" alt="comment" />
+      <img
+        class="comment-img"
+        src="{% static 'img/speech-bubble.png' %}"
+        alt="comment"
+      />
       2
     </div>
     <div class="post-items">
-      <img src="{% static 'img/download.png' %}" alt="downVote" />
+      <img
+        class="down-img"
+        src="{% static 'img/download.png' %}"
+        alt="downVote"
+      />
     </div>
     <div class="post-items">
-      <img src="{% static 'img/menu-dots.png' %}" alt="three dots" />
+      <img
+        class="three-dots-img"
+        src="{% static 'img/menu-dots.png' %}"
+        alt="three dots"
+      />
     </div>
   </div>
 </div>
@@ -97,24 +117,49 @@
     </p>
   </div>
   <div class="answer-items">
-    <div class="vote">
+    <div class="items-without-three-dots">
+      <span class="upvote-downvote">
+        <div class="ans-items">
+          <img
+            class="up-img"
+            src="{% static 'img/up-arrow.png' %}"
+            alt="upvote"
+          />
+          Upvote.34.5k
+        </div>
+        <div class="ans-items">
+          |
+          <img
+            class="down-img"
+            src="{% static 'img/download.png' %}"
+            alt="downvote"
+          />
+        </div>
+      </span>
       <div class="ans-items">
-        <img src="{% static 'img/up-arrow.png' %}" alt="upvote" />
-        .34.5k
+        <img
+          class="comment-img"
+          src="{% static 'img/speech-bubble.png' %}"
+          alt="comment"
+        />
+        213
       </div>
       <div class="ans-items">
-        <img src="{% static 'img/download.png' %}" alt="downvote" />
+        <img
+          class="share-img"
+          src="{% static 'img/reload.png' %}"
+          alt="share"
+        />28
       </div>
     </div>
-    <div class="ans-items">
-      <img src="{% static 'img/speech-bubble.png' %}" alt="comment" />
-      213
-    </div>
-    <div class="ans-items">
-      <img src="{% static 'img/reload.png' %}" alt="share" />28
-    </div>
-    <div class="ans-items">
-      <img src="{% static 'img/menu-dots.png' %}" alt="details" />
+    <div>
+      <div class="ans-items">
+        <img
+          class="three-dots-img"
+          src="{% static 'img/menu-dots.png' %}"
+          alt="details"
+        />
+      </div>
     </div>
   </div>
 </div>

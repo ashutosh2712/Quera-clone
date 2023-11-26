@@ -34,9 +34,9 @@ class QuestionForm(forms.ModelForm):
         widget=forms.Textarea(
             attrs={
                 "class": "post-text-ques",
-                "rows": 10,
+                "rows": 2,
                 "cols": 75,
-                "placeholder": "Enter your question here...",
+                "placeholder": "Do you want to ask something?",
             }
         )
     )

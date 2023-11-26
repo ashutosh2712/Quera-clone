@@ -1,10 +1,13 @@
-
+body {
+  background: rgb(240, 237, 237);
+  margin: 0;
+}
 .nav-container{
     display: flex;
-    background-color: lightgrey;
+    background-color: #fff;
     justify-content: center;
     align-items: center;
-    margin-top: 0;
+    margin: 0;
   }
   .nav-item {
     margin: 1rem;
@@ -48,11 +51,13 @@
   }
 
   .question-container {
-    border: 1px solid gray;
-    margin-top: 10px;
-    margin-left: 100px;
-    width: 80vh;
+    border-radius: 5px;
+    border: 0.5px solid lightgray;
     height: 20vh;
+    margin-left: 100px;
+    margin-top: 10px;
+    width: 80vh;
+    background-color: #fff;
   }
 
   .post-items {
@@ -65,19 +70,23 @@
   }
 
   .answer-container {
-    border: 1px solid gray;
-    margin-top: 10px;
-    width: 80vh;
+    border-radius: 5px;
+    border: 0.5px solid lightgray;
     height: 40vh;
-    overflow: auto;
-    margin-top: 10px;
     margin-left: 100px;
+    margin-top: 10px;
+    margin-top: 10px;
+    overflow: auto;
+    width: 80vh;
+    background-color: #fff;
   }
   .answer-text-items {
     margin-left: 15px;
   }
   .answer-items {
     display:flex;
+    justify-content: space-between;
+    margin-right: 20px;
   }
   .ans-items {
     margin-left: 1.5rem;
@@ -85,9 +94,6 @@
   .ans-main{
     font-weight: bold;
     font-size: 16px;
-  }
-  .vote {
-    display:flex;
   }
 
   .post-container {
@@ -132,11 +138,9 @@
   
 }
 
-/* Add this CSS to your styles.css or within the <style> tag in your HTML head */
 body.blur {
   filter: blur(5px);
 }
-
 
 .overlay {
   position: fixed;
@@ -165,7 +169,7 @@ body.blur {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid lightgray;
   width: 786px;
   border-radius: 15px;
 }
@@ -205,8 +209,41 @@ body.blur {
 .post-text-ans,.post-text-ques {
   border-radius: 10px;
 }
+.post-text-ques{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+  color: gray;
+  font-size: 14px;
+  padding: 10px;
+  border-color: lightgray;
+}
 .ques-attach-ans{
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
 }
 
+.follow-img,.request-img, .detail-img, .comment-img, .up-img, .down-img, .three-dots-img, .share-img {
+  height: 18px;
+  width: 18px;
+}
+.three-dots-img {
+  width: 25px;
+}
+.up-img, .down-img{
+  width: 30px;
+  height: 14px;
+}
+.upvote-downvote {
+  background-color: rgb(237, 235, 235);
+  display:flex;
+  border-radius: 10px;
+  height: 25px;
+  width: 220px;
+  margin-left: 10px;
+  padding-top: 5px;
+  border: 1px solid lightgray;
+}
+
+.items-without-three-dots {
+  display: flex;
+}
