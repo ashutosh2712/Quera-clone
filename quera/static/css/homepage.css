@@ -75,18 +75,22 @@ body {
     height: 40vh;
     margin-left: 100px;
     margin-top: 10px;
-    margin-top: 10px;
+    
     overflow: auto;
     width: 80vh;
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .answer-text-items {
     margin-left: 15px;
   }
   .answer-items {
-    display:flex;
+    display: flex;
     justify-content: space-between;
     margin-right: 20px;
+    margin-bottom: 10px;
   }
   .ans-items {
     margin-left: 1.5rem;
@@ -236,9 +240,9 @@ body.blur {
 .upvote-downvote {
   background-color: rgb(237, 235, 235);
   display:flex;
-  border-radius: 10px;
+  border-radius: 50px;
   height: 25px;
-  width: 220px;
+  width: 160px;
   margin-left: 10px;
   padding-top: 5px;
   border: 1px solid lightgray;
@@ -246,4 +250,9 @@ body.blur {
 
 .items-without-three-dots {
   display: flex;
+}
+
+.upvote-btn, .downvote-btn {
+  border: none;
+  padding: 0px;
 }

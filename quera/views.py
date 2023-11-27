@@ -1,18 +1,32 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from .forms import CreateUserForm, QuestionForm, AnswerForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Question
+from django.db.models import Count, Q
+from .models import Question, Answer, Vote
 
 
 # Create your views here.
 @login_required(login_url="login")
 def home(request):
-    questions = Question.objects.all().order_by("-created_at")
+    questions = (
+        Question.objects.annotate(
+            upvote_count=Count(
+                "answers__votes", filter=Q(answers__votes__vote_type="upvote")
+            )
+        )
+        .all()
+        .order_by("-created_at")
+    )
     form = QuestionForm()
     ans_form = AnswerForm()
+
+    for question in questions:
+        for answer in question.answers.all():
+            answer.upvotes = answer.votes.filter(vote_type="upvote").count()
+
     context = {"form": form, "questions": questions, "ans_form": ans_form}
     return render(request, "homepage.html", context)
 
@@ -90,3 +104,36 @@ def postans(request, question_id):
         errors = ans_form.errors
     context = {"ans_form": ans_form, "errors": errors, "question": question}
     return render(request, "homepage.html", context)
+
+
+def upvote(request, answer_id):
+    answer = Answer.objects.get(pk=answer_id)
+    user = request.user
+    existing_vote = Vote.objects.filter(user=user, answer=answer).first()
+
+    if existing_vote:
+        existing_vote.delete()
+    else:
+        Vote.objects.create(user=request.user, answer=answer, vote_type="upvote")
+
+    # updated_upvotes_count = answer.votes.filter(vote_type="upvote").count()
+    answer.upvotes = answer.votes.filter(vote_type="upvote").count()
+    answer.downvotes = answer.votes.filter(vote_type="downvote").count()
+    answer.save()
+    print(answer.upvotes)
+
+    return JsonResponse({"upvotes": answer.upvotes})
+
+
+def downvote(request, answer_id):
+    answer = Answer.objects.get(pk=answer_id)
+    user = request.user
+    existing_vote = Vote.objects.filter(user=user, answer=answer).first()
+
+    if existing_vote:
+        existing_vote.delete()
+    else:
+        Vote.objects.create(user=request.user, answer=answer, vote_type="downvote")
+
+    updated_downvotes_count = answer.votes.filter(vote_type="downvote").count()
+    return JsonResponse({"downvotes": updated_downvotes_count})

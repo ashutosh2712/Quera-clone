@@ -119,21 +119,25 @@
   <div class="answer-items">
     <div class="items-without-three-dots">
       <span class="upvote-downvote">
-        <div class="ans-items">
-          <img
-            class="up-img"
-            src="{% static 'img/up-arrow.png' %}"
-            alt="upvote"
-          />
-          Upvote.34.5k
+        <div class="ans-items" style="margin-left: 0">
+          <button class="upvote-btn" data-answer-id="{{ answer.id }}">
+            <img
+              class="up-img"
+              src="{% static 'img/up-arrow.png' %}"
+              alt="upvote"
+            />
+            Upvote. <span class="upvote-count">{{ answer.upvotes }}</span>
+          </button>
         </div>
         <div class="ans-items">
           |
-          <img
-            class="down-img"
-            src="{% static 'img/download.png' %}"
-            alt="downvote"
-          />
+          <button class="downvote-btn" data-answer-id="{{ answer.id }}">
+            <img
+              class="down-img"
+              src="{% static 'img/download.png' %}"
+              alt="downvote"
+            />
+          </button>
         </div>
       </span>
       <div class="ans-items">
@@ -202,6 +206,32 @@
 
     // Hide the answer modal
     document.getElementById("answerModal").style.display = "none";
+  }
+
+  document.querySelectorAll(".upvote-btn").forEach((button) => {
+    button.addEventListener("click", () =>
+      handleVote("upvote", button.dataset.answerId)
+    );
+  });
+
+  document.querySelectorAll(".downvote-btn").forEach((button) => {
+    button.addEventListener("click", () =>
+      handleVote("downvote", button.dataset.answerId)
+    );
+  });
+
+  function handleVote(action, answerId) {
+    fetch(`/quera/${action}/${answerId}/`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        const answerElement = document.querySelector(
+          `[data-answer-id="${answerId}"]`
+        );
+        const upvoteCountElement = answerElement.querySelector(".upvote-count");
+        upvoteCountElement.textContent = data.upvotes;
+      })
+      .catch((error) => console.error("Error:", error));
   }
 </script>
 {% endblock %}
