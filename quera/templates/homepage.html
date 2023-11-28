@@ -2,7 +2,6 @@
 <title>{% block title %} Home {% endblock %}</title>
 {% block content %} {% load static %}
 <link rel="stylesheet" href="{% static 'css/homepage.css' %}" />
-
 <div class="nav-container">
   <div class="nav-item item-one"><h1>Quera</h1></div>
   <div class="nav-item item-two">
@@ -33,9 +32,12 @@
 
   <div class="nav-item item-eleven">Hello,{{request.user}}</div>
   <div class="nav-item item-twelve">
-    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'logout' %}"
+      ><img src="{% static 'img/switch.png' %}" alt="logout-icon" />
+    </a>
   </div>
 </div>
+
 <div class="form-container">
   <form class="post-form" action="{% url 'postques' %}" method="post">
     <div>{% csrf_token %} {{ form.content }}</div>
@@ -45,54 +47,72 @@
 
 {% for ques in questions %}
 <div class="question-container">
-  <div class="post-items">
-    <p>{{ ques.user.username }} asked:</p>
+  <div class="post-text-items">
+    <div class="user-ques-info">
+      <div class="username">
+        <p>{{ ques.user.username }} asked:</p>
+      </div>   
+      <div class="question-time">{{ques.created_at}}</div>
+    </div>
     <h2>{{ ques.content }}</h2>
   </div>
   <div class="rest-container">
-    <div class="post-items ans" onclick="showAnswerForm({{ ques.id }})">
-      Answer
+    <div class="items-without-three-dots">
+      <span class="post-items ans" onclick="showAnswerForm({{ ques.id }})">
+        <img
+          class="answer-img"
+          src="{% static 'img/document-editor.png' %}"
+          alt="answer"
+        />
+        Answer
+      </span>
+      <div class="post-items">
+        <img
+          class="follow-img"
+          src="{% static 'img/hotspot.png' %}"
+          alt="follow"
+        />
+        Follow. 383
+      </div>
+      <div class="post-items">
+        <img
+          class="request-img"
+          src="{% static 'img/add-contact.png' %}"
+          alt="request"
+        />
+        Request
+      </div>
+      <div class="post-items">
+        <img
+          class="detail-img"
+          src="{% static 'img/info.png' %}"
+          alt="details"
+        />
+      </div>
+      <div class="post-items">
+        <img
+          class="comment-img"
+          src="{% static 'img/speech-bubble.png' %}"
+          alt="comment"
+        />
+        2
+      </div>
+      <div class="post-items">
+        <img
+          class="down-img"
+          src="{% static 'img/download.png' %}"
+          alt="downVote"
+        />
+      </div>
     </div>
-    <div class="post-items">
-      <img
-        class="follow-img"
-        src="{% static 'img/hotspot.png' %}"
-        alt="follow"
-      />
-      Follow. 383
-    </div>
-    <div class="post-items">
-      <img
-        class="request-img"
-        src="{% static 'img/add-contact.png' %}"
-        alt="request"
-      />
-      Request
-    </div>
-    <div class="post-items">
-      <img class="detail-img" src="{% static 'img/info.png' %}" alt="details" />
-    </div>
-    <div class="post-items">
-      <img
-        class="comment-img"
-        src="{% static 'img/speech-bubble.png' %}"
-        alt="comment"
-      />
-      2
-    </div>
-    <div class="post-items">
-      <img
-        class="down-img"
-        src="{% static 'img/download.png' %}"
-        alt="downVote"
-      />
-    </div>
-    <div class="post-items">
-      <img
-        class="three-dots-img"
-        src="{% static 'img/menu-dots.png' %}"
-        alt="three dots"
-      />
+    <div>
+      <div class="post-items">
+        <img
+          class="three-dots-img"
+          src="{% static 'img/menu-dots.png' %}"
+          alt="three dots"
+        />
+      </div>
     </div>
   </div>
 </div>
@@ -110,10 +130,10 @@
 {% for answer in ques.answers.all %}
 <div class="answer-container">
   <div class="answer-text-items">
-    <p class="ques-attach-ans">Answer of : {{ answer.question.content }}</p>
+    <p class="ques-attach-ans">Answer of : <p class="dynamic-answer">{{ answer.question.content }}</p></p>
     <p class="ans-main">
-      Answered by:{{ answer.user.username }}
-      <br />{{ answer.content }}
+      {{ answer.user.username }}Answered:
+      <p class="answer-content">{{ answer.content }} </p>
     </p>
   </div>
   <div class="answer-items">
@@ -170,68 +190,5 @@
 {% endfor %} {% endfor %} {% if errors %}
 <div style="color: red">{{ errors }}</div>
 {% endif %}
-
-<script>
-  function showPostForm() {
-    console.log("showPostForm called");
-    document.querySelector(".post-form").style.display = "block";
-  }
-  function closePostForm() {
-    document.querySelector(".post-form").style.display = "none";
-  }
-
-  function showAnswerForm(questionId) {
-    // Check if questionId is a valid numerical value
-    if (Number.isInteger(questionId) && questionId > 0) {
-      // Show the overlay to blur the background
-      document.getElementById("overlay").style.display = "block";
-
-      // Show the answer modal
-      document.getElementById("answerModal").style.display = "block";
-
-      // Update the form action URL with the specific question ID
-
-      document.querySelector(
-        "#answerModal form"
-      ).action = `/quera/postans/${encodeURIComponent(questionId)}/`;
-    } else {
-      // Handle invalid questionId (optional)
-      console.error("Invalid questionId:", questionId);
-    }
-  }
-
-  function closeAnswerForm() {
-    // Hide the overlay to unblur the background
-    document.getElementById("overlay").style.display = "none";
-
-    // Hide the answer modal
-    document.getElementById("answerModal").style.display = "none";
-  }
-
-  document.querySelectorAll(".upvote-btn").forEach((button) => {
-    button.addEventListener("click", () =>
-      handleVote("upvote", button.dataset.answerId)
-    );
-  });
-
-  document.querySelectorAll(".downvote-btn").forEach((button) => {
-    button.addEventListener("click", () =>
-      handleVote("downvote", button.dataset.answerId)
-    );
-  });
-
-  function handleVote(action, answerId) {
-    fetch(`/quera/${action}/${answerId}/`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        const answerElement = document.querySelector(
-          `[data-answer-id="${answerId}"]`
-        );
-        const upvoteCountElement = answerElement.querySelector(".upvote-count");
-        upvoteCountElement.textContent = data.upvotes;
-      })
-      .catch((error) => console.error("Error:", error));
-  }
-</script>
+<script src="{% static 'js/homepage.js' %}"></script>
 {% endblock %}

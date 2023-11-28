@@ -76,7 +76,6 @@ def postques(request):
     form = QuestionForm()
     if request.method == "POST":
         form = QuestionForm(request.POST)
-        print(form.is_valid())
         if form.is_valid():
             question = form.save(commit=False)
             question.user = request.user
@@ -120,7 +119,6 @@ def upvote(request, answer_id):
     answer.upvotes = answer.votes.filter(vote_type="upvote").count()
     answer.downvotes = answer.votes.filter(vote_type="downvote").count()
     answer.save()
-    print(answer.upvotes)
 
     return JsonResponse({"upvotes": answer.upvotes})
 
