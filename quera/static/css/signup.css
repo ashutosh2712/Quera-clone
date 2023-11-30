@@ -1,14 +1,17 @@
 body {
-    background-color:tomato;
+    background-image: url('../img/quera_home2.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .form-container{
     height: 70vh;
     width: 70vh;
     border-radius: 5px;
     border: 1px solid #fff;
-    background-color: lightcyan;
-    margin: 50vh 60vh;
-    padding: 20px 10px;  
+    background-color: #fff;
+    margin: 20vh 50vh;
+    padding: 20px 10px; 
+    opacity: 0.95;
 }
 form {
     display: flex;
@@ -18,11 +21,17 @@ form {
     margin-top: 40px;
 }
 .custom-class,input {
-    border: none;
+    border: 1px solid lightgray;
     padding: 10px;
     border-radius: 5px;
     width: 150px;
 }
+input:focus{
+    border-color: dodgerblue;
+      box-shadow: 0 0 0 2px dodgerblue;
+      outline: 0 ;
+  }
+  
 
 h1 {
     color: red;
@@ -32,6 +41,8 @@ h1 {
 p {
     text-align: center;
     font-weight: bold;
+    color: gray;
+    font-size: 18px;
 }
 button {
     padding: 10px;
