@@ -6,6 +6,8 @@
     <title>{% block title %} {% endblock %}</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+    <link rel="icon" href="{% static 'img/q.png' %}" type="image/x-icon" />
   </head>
   <body>
     {% block content %} {% endblock %}

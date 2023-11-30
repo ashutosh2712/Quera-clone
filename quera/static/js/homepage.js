@@ -12,7 +12,7 @@ function showPostForm() {
 
       document.querySelector(
         "#answerModal form"
-      ).action = `/quera/postans/${encodeURIComponent(questionId)}/`;
+      ).action = `/postans/${encodeURIComponent(questionId)}/`;
     } else {
       console.error("Invalid questionId:", questionId);
     }
@@ -36,7 +36,7 @@ function showPostForm() {
   });
 
   function handleVote(action, answerId) {
-    fetch(`/quera/${action}/${answerId}/`)
+    fetch(`/${action}/${answerId}/`)
       .then((response) => response.json())
       .then((data) => {
         const answerElement = document.querySelector(
