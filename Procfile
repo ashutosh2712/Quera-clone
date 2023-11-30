@@ -1,0 +1,1 @@
+web gunicorn QueraClone.wsgi:application --log-file -
