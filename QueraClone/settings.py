@@ -25,7 +25,7 @@ environ.Env.read_env()
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = "django-insecure-k!!#dhj9c6(lb^r+_tb99cdxc#43*15+mofox&3#l0ibxok-p"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -132,6 +132,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "quera", "static"),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, "your_manual_static_folder")
 # django_heroku.settings(locals())
 
 # Default primary key field type
